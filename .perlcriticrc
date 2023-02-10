@@ -1,0 +1,10 @@
+severity = 3
+program-extensions = .pl .t
+
+[-Subroutines::ProhibitExplicitReturnUndef]
+[-ValuesAndExpressions::ProhibitImplicitNewlines]
+
+[Perlsecret]
+allow_secrets = Bang Bang
+
+[ProhibitLoopOnHash]
