@@ -13,17 +13,10 @@ jobs:
       - uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: 5.34.1
-      - uses: actions/cache@v3
-        id: setup-local
-        with:
-          path: local
-          key: ${{runner.os}}-local
-      - uses: perl-actions/install-with-cpm@stable
-        if: steps.setup-local.outputs.cache-hit != 'true'
-        with:
-          cpanfile: cpanfile
-          sudo: false
-      - run: prove -l -PShard=${{matrix.shard}} ./example_tests
+          install-modules-with: cpm
+          enable-modules-cache: true
+      - run: echo PERL5LIB=$PERL5LIB:$PWD/lib:$PWD/local/lib/perl5 >> $GITHUB_ENV
+      - run: prove -PShard=${{matrix.shard}} ./example_tests
 
   test:
     strategy:
