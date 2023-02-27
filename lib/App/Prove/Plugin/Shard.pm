@@ -35,14 +35,19 @@ sub load {
       RED, $shard_number, $total_shards, RESET );
   }
 
-  around 'App::Prove::_get_tests' => sub {
+  around 'App::Prove::_get_tests' => _build_get_tests($shard_number, $total_shards);
+
+  return 1;
+}
+
+sub _build_get_tests {
+  my ($shard_number, $total_shards) = @_;
+  return sub {
     my $orig = shift;
 
     my @test_files = $orig->(@_);
     return map { $test_files[$_] } grep { ( $_ % $total_shards ) + 1 == $shard_number } 0 .. $#test_files;
-  };
-
-  return 1;
+  }
 }
 
 sub import { }
