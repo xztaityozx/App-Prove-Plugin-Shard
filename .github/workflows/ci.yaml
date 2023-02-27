@@ -28,14 +28,12 @@ jobs:
       - uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: 5.34.1
-      - uses: actions/cache@v3
-        id: setup-local
-        with:
-          path: local
-          key: ${{runner.os}}-local
-      - uses: perl-actions/install-with-cpm@stable
-        if: steps.setup-local.outputs.cache-hit != 'true'
-        with:
-          cpanfile: cpanfile
-          sudo: false
-      - run: prove -lv ./t
+          install-modules-with: cpm
+          enable-modules-cache: true
+      - run: echo PERL5LIB=$PERL5LIB:$PWD/lib:$PWD/local/lib/perl5 >> $GITHUB_ENV
+      - name: lint
+        run: local/bin/perlcritic ./lib
+      - name: format
+        run: local/bin/perltidy --assert-tidy ./lib/**/*.pm ./t/**/*.t
+      - name: test
+        run: prove -lv ./t
