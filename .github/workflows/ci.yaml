@@ -30,7 +30,7 @@ jobs:
           perl-version: 5.34.1
           install-modules-with: cpm
           enable-modules-cache: true
-          distribution: ${{ ( runner.os == 'windows-latest' && 'strawberry') || 'default' }}
+          distribution: ${{ ( matrix.os == 'windows-latest' && 'strawberry') || 'default' }}
       - run: echo PERL5LIB=$PERL5LIB:$PWD/lib:$PWD/local/lib/perl5 >> $GITHUB_ENV
       - name: lint
         run: local/bin/perlcritic ./lib
