@@ -45,7 +45,7 @@ sub _build_get_tests {
   return sub {
     my $orig = shift;
 
-    my @test_files = $orig->(@_);
+    my @test_files = sort $orig->(@_);
     return map { $test_files[$_] } grep { ( $_ % $total_shards ) + 1 == $shard_number } 0 .. $#test_files;
   }
 }
