@@ -13,3 +13,6 @@
 --add-semicolons
 
 --opening-brace-always-on-right
+
+# イコールを揃えない
+-vxl='='
