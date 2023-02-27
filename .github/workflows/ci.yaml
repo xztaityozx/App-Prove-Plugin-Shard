@@ -30,7 +30,12 @@ jobs:
           perl-version: 5.34.1
           install-modules-with: cpm
           enable-modules-cache: true
-      - run: echo PERL5LIB=$PERL5LIB:$PWD/lib:$PWD/local/lib/perl5 >> $GITHUB_ENV
+      - name: setup PERL5LIB on unix
+        if: matrix.os != 'windows-latest'
+        run: echo PERL5LIB=$PERL5LIB:$PWD/lib:$PWD/local/lib/perl5 >> $GITHUB_ENV
+      - name: setup PERL5LIB on windows
+        if: matrix.os == 'windows-latest'
+        run: echo PERL5LIB="${env:PERL5LIB}:${PWD}/lib:${PWD}/local/lib/perl5" >> $GITHUB_ENV
       - name: lint
         run: local/bin/perlcritic ./lib
       - name: format
