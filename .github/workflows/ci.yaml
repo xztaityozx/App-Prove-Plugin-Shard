@@ -1,0 +1,48 @@
+name: 'CI'
+
+on: push
+
+jobs:
+  example:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shard: ["1,5", "2,5", "3,5", "4,5", "5,5"]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: 5.34.1
+      - uses: actions/cache@v3
+        id: setup-local
+        with:
+          path: local
+          key: ${{runner.os}}-local
+      - uses: perl-actions/install-with-cpm@stable
+        if: steps.setup-local.outputs.cache-hit != 'true'
+        with:
+          cpanfile: cpanfile
+          sudo: false
+      - run: prove -l -PShard=${{matrix.shard}} ./example_tests
+
+  test:
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: 5.34.1
+      - uses: actions/cache@v3
+        id: setup-local
+        with:
+          path: local
+          key: ${{runner.os}}-local
+      - uses: perl-actions/install-with-cpm@stable
+        if: steps.setup-local.outputs.cache-hit != 'true'
+        with:
+          cpanfile: cpanfile
+          sudo: false
+      - run: prove -lv ./t
