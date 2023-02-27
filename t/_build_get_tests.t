@@ -1,5 +1,8 @@
 use Test2::V0;
-use strictures 2;
+
+use strict;
+use warnings FATAL => 'all';
+use utf8;
 
 use Test2::Bundle::Extended;
 use Test2::Tools::Spec;

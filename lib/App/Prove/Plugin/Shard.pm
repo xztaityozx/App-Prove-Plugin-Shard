@@ -1,7 +1,8 @@
 package App::Prove::Plugin::Shard;
 
-use strictures 2;
-use feature qw/say/;
+use strict;
+use warnings FATAL => 'all';
+use utf8;
 
 use Class::Method::Modifiers qw/around/;
 use App::Prove;

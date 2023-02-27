@@ -2,7 +2,9 @@ use Test2::V0;
 use Test2::Tools::Spec;
 use Test2::Bundle::Extended;
 
-use strictures 2;
+use strict;
+use warnings FATAL => 'all';
+use utf8;
 
 use App::Prove::Plugin::Shard;
 use Class::Method::Modifiers qw/around/;

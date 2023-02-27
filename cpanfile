@@ -6,6 +6,5 @@ requires 'App::Prove' => '>=3.44';
 requires 'Type::Tiny' => '>=2.002001';
 requires 'Perl::Critic::Policy::Variables::ProhibitLoopOnHash' => '>=0.008';
 requires 'Perl::Critic::Policy::Perlsecret' => '>=v0.0.11';
-requires 'strictures' => '>=2.000006';
 requires 'Term::ANSIColor' => '>=5.01';
 requires 'Feature::Compat::Try' => '>=0.05';

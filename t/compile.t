@@ -1,6 +1,8 @@
 use Test2::V0;
-use strictures 2;
 use App::Prove::Plugin::Shard;
+use strict;
+use warnings FATAL => 'all';
+use utf8;
 
 ok(1);
 
