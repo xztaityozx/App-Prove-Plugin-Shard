@@ -28,7 +28,7 @@ jobs:
       - uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: 5.34.1
-          install-modules-with: cpm
+          install-modules-with: cpanm
           enable-modules-cache: true
       - run: echo PERL5LIB=$PERL5LIB:$PWD/lib:$PWD/local/lib/perl5 >> $GITHUB_ENV
       - name: lint
