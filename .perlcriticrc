@@ -7,4 +7,4 @@ program-extensions = .pl .t
 [Perlsecret]
 allow_secrets = Bang Bang
 
-[ProhibitLoopOnHash]
+[Variables::ProhibitLoopOnHash]
